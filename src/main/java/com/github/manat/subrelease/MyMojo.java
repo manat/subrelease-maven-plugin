@@ -1,4 +1,4 @@
-package com.github.manat.maven.plugins.subrelease;
+package com.github.manat.subrelease;
 
 /*
  * Copyright 2001-2005 The Apache Software Foundation.

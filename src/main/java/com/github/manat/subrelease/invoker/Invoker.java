@@ -1,8 +1,8 @@
-package com.github.manat.maven.plugins.subrelease.invoker;
+package com.github.manat.subrelease.invoker;
 
 import java.nio.file.Path;
 
-import com.github.manat.maven.plugins.subrelease.model.Artifact;
+import com.github.manat.subrelease.model.Artifact;
 
 /**
  * Responsible in invoking maven command.

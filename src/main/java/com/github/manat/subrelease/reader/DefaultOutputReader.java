@@ -1,4 +1,4 @@
-package com.github.manat.maven.plugins.subrelease.reader;
+package com.github.manat.subrelease.reader;
 
 import static java.nio.file.Files.readAllBytes;
 
@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import com.github.manat.maven.plugins.subrelease.model.Artifact;
+import com.github.manat.subrelease.model.Artifact;
 
 /**
  * Reads the output file using plain default Java lib.

@@ -1,4 +1,4 @@
-package com.github.manat.maven.plugins.subrelease.reader;
+package com.github.manat.subrelease.reader;
 
 import static java.nio.file.Paths.get;
 import static org.hamcrest.core.Is.is;
@@ -11,9 +11,9 @@ import java.util.List;
 
 import org.junit.Test;
 
-import com.github.manat.maven.plugins.subrelease.model.Artifact;
-import com.github.manat.maven.plugins.subrelease.reader.PomReader;
-import com.github.manat.maven.plugins.subrelease.reader.XpathPomReader;
+import com.github.manat.subrelease.model.Artifact;
+import com.github.manat.subrelease.reader.PomReader;
+import com.github.manat.subrelease.reader.XpathPomReader;
 
 public class XpathPomReaderTest {
 

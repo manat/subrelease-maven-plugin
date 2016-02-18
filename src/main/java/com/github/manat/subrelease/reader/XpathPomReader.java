@@ -1,4 +1,4 @@
-package com.github.manat.maven.plugins.subrelease.reader;
+package com.github.manat.subrelease.reader;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -20,7 +20,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import com.github.manat.maven.plugins.subrelease.model.Artifact;
+import com.github.manat.subrelease.model.Artifact;
 
 /**
  * Reads Maven pom information using xpath.

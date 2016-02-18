@@ -1,8 +1,8 @@
-package com.github.manat.maven.plugins.subrelease.reader;
+package com.github.manat.subrelease.reader;
 
 import java.util.List;
 
-import com.github.manat.maven.plugins.subrelease.model.Artifact;
+import com.github.manat.subrelease.model.Artifact;
 
 /**
  * An interface to read Maven pom information.

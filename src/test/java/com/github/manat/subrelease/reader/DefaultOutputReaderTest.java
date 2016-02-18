@@ -1,4 +1,4 @@
-package com.github.manat.maven.plugins.subrelease.reader;
+package com.github.manat.subrelease.reader;
 
 import static org.junit.Assert.assertThat;
 import static org.hamcrest.core.IsEqual.equalTo;
@@ -11,9 +11,9 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.github.manat.maven.plugins.subrelease.model.Artifact;
-import com.github.manat.maven.plugins.subrelease.reader.DefaultOutputReader;
-import com.github.manat.maven.plugins.subrelease.reader.OutputReader;
+import com.github.manat.subrelease.model.Artifact;
+import com.github.manat.subrelease.reader.DefaultOutputReader;
+import com.github.manat.subrelease.reader.OutputReader;
 
 public class DefaultOutputReaderTest {
 

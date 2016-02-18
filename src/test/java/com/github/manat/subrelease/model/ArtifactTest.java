@@ -1,11 +1,11 @@
-package com.github.manat.maven.plugins.subrelease.model;
+package com.github.manat.subrelease.model;
 
 import static org.junit.Assert.assertThat;
 import static org.hamcrest.core.IsEqual.equalTo;
 
 import org.junit.Test;
 
-import com.github.manat.maven.plugins.subrelease.model.Artifact;
+import com.github.manat.subrelease.model.Artifact;
 
 public class ArtifactTest {
 

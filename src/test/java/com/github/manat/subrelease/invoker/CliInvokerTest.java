@@ -1,4 +1,4 @@
-package com.github.manat.maven.plugins.subrelease.invoker;
+package com.github.manat.subrelease.invoker;
 
 import static java.nio.file.Files.readAllBytes;
 import static org.hamcrest.core.Is.is;
@@ -14,7 +14,8 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
-import com.github.manat.maven.plugins.subrelease.model.Artifact;
+import com.github.manat.subrelease.invoker.CliInvoker;
+import com.github.manat.subrelease.model.Artifact;
 
 public class CliInvokerTest {
 
