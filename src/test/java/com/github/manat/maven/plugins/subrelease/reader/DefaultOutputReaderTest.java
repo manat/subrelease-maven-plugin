@@ -11,7 +11,7 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.github.manat.maven.plugins.model.Artifact;
+import com.github.manat.maven.plugins.subrelease.model.Artifact;
 import com.github.manat.maven.plugins.subrelease.reader.DefaultOutputReader;
 import com.github.manat.maven.plugins.subrelease.reader.OutputReader;
 

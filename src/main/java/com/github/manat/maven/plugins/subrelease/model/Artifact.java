@@ -1,4 +1,4 @@
-package com.github.manat.maven.plugins.model;
+package com.github.manat.maven.plugins.subrelease.model;
 
 /**
  * Model class to represent artifact information.

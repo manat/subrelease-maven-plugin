@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import com.github.manat.maven.plugins.model.Artifact;
+import com.github.manat.maven.plugins.subrelease.model.Artifact;
 
 /**
  * Reads the output file using plain default Java lib.

@@ -1,10 +1,10 @@
-package com.github.manat.maven.plugins.invoker;
+package com.github.manat.maven.plugins.subrelease.invoker;
 
 import java.nio.file.Path;
 
 import org.apache.maven.cli.MavenCli;
 
-import com.github.manat.maven.plugins.model.Artifact;
+import com.github.manat.maven.plugins.subrelease.model.Artifact;
 
 /**
  * Invoking maven command using Maven Embedder.
