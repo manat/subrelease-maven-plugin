@@ -3,6 +3,7 @@ package com.codedeck.maven.plugins.subrelease.reader;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -88,9 +89,16 @@ public class XpathPomReader implements PomReader {
 			e.printStackTrace();
 		}
 
-		return null;
+		return Collections.<Artifact> emptyList();
 	}
 
+	/**
+	 * Retrieves a scm connection from pom, by looking specifically at
+	 * scm/developerConnection.
+	 * 
+	 * @return a scm connection indicates scm type, and connection information;
+	 *         {@code null} otherwise
+	 */
 	public String getScmConnection() {
 		XPath xPath = XPathFactory.newInstance().newXPath();
 		try {
