@@ -17,7 +17,7 @@
 	</properties>
 
 	<scm>
-		<developerConnection>https://github.com/manat/subrelease-maven-plugin.git</developerConnection>
+		<developerConnection>scm:git:https://github.com/manat/subrelease-maven-plugin.git</developerConnection>
 	</scm>
 
 	<dependencies>
