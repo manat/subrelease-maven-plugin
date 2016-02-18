@@ -23,45 +23,45 @@ public class CliInvoker implements Invoker {
 	}
 
 	@Override
-	public int resolveDependency(Artifact artifact, Path output) {
+	public boolean resolveDependency(Artifact artifact, Path output) {
 		int result = cli.doMain(new String[] { "dependency:resolve", "-DoutputFile=" + output.toAbsolutePath() },
 				projectDir, System.out, System.out);
 
-		return result;
+		return result == 0;
 	}
 
 	@Override
-	public int unpackArtifact(Artifact artifact) {
+	public boolean unpackArtifact(Artifact artifact) {
 		int result = cli.doMain(new String[] { "dependency:unpack", "-Dartifact=" + artifact }, projectDir, System.out,
 				System.out);
 
-		return result;
+		return result == 0;
 	}
 
 	@Override
-	public int checkout(Artifact artifact, String connection) {
+	public boolean checkout(Artifact artifact, String connection) {
 		int result = cli.doMain(new String[] { "scm:checkout", "-DconnectionType=developerConnection",
 				"-DcheckoutDirectory=target/checkout/" + artifact.getArtifactId(),
 				"-DdeveloperConnectionUrl=" + connection }, projectDir, System.out, System.out);
 
-		return result;
+		return result == 0;
 	}
 
 	@Override
-	public int release() {
+	public boolean release() {
 		return release(projectDir);
 	}
 
 	@Override
-	public int release(Path projectPath) {
+	public boolean release(Path projectPath) {
 		return release(projectPath.toString());
 	}
 
-	private int release(String projectPath) {
+	private boolean release(String projectPath) {
 		int result = cli.doMain(new String[] { "--batch-mode", "release:clean", "release:prepare" }, projectPath,
 				System.out, System.out);
 
-		return result;
+		return result == 0;
 	}
 
 }

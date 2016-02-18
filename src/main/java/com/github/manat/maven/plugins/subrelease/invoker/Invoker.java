@@ -18,18 +18,18 @@ public interface Invoker {
 	 *            an artifact to find dependencies
 	 * @param output
 	 *            resolved dependencies are stored here
-	 * @return 0 for success; 1 otherwise
+	 * @return true for success; false otherwise
 	 */
-	int resolveDependency(Artifact artifact, Path output);
+	boolean resolveDependency(Artifact artifact, Path output);
 
 	/**
 	 * Executes mvn dependency:unpack of the given artifact value.
 	 * 
 	 * @param artifact
 	 *            an Artifact to be unpack
-	 * @return 0 for success; 1 otherwise
+	 * @return true for success; false otherwise
 	 */
-	int unpackArtifact(Artifact artifact);
+	boolean unpackArtifact(Artifact artifact);
 
 	/**
 	 * Executes mvn scm:checkout of the given artifact, using provided
@@ -39,23 +39,23 @@ public interface Invoker {
 	 *            an Artifact to be checkout
 	 * @param connection
 	 *            an information indicates scm type and connection url
-	 * @return 0 for success; 1 otherwise
+	 * @return true for success; false otherwise
 	 */
-	int checkout(Artifact artifact, String connection);
+	boolean checkout(Artifact artifact, String connection);
 
 	/**
 	 * Executes mvn release:prepare
 	 * 
-	 * @return 0 for success; 1 otherwise
+	 * @return true for success; false otherwise
 	 */
-	int release();
+	boolean release();
 
 	/**
 	 * Executes mvn release:prepare for the given projectPath.
 	 * 
 	 * @param projectPath
 	 *            location of a maven project
-	 * @return 0 for success; 1 otherwise
+	 * @return true for success; false otherwise
 	 */
-	int release(Path projectPath);
+	boolean release(Path projectPath);
 }
