@@ -1,0 +1,6 @@
+
+The following files have been resolved:
+   com.codedeck.sample:dep-a:jar:0.0.1-SNAPSHOT:compile
+   org.codehaus.plexus:plexus-component-annotations:jar:1.5.4:compile
+   org.apache.maven:maven-plugin-api:jar:3.0:compile
+

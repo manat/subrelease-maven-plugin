@@ -15,6 +15,14 @@ public class Artifact {
 		// Intentionally left blank.
 	}
 
+	public Artifact(String rawDependency) {
+		String[] items = rawDependency.trim().split("\\:");
+
+		this.groupId = items[0];
+		this.artifactId = items[1];
+		this.version = items[3];
+	}
+
 	public Artifact(String groupId, String artifactId, String version) {
 		this.groupId = groupId;
 		this.artifactId = artifactId;
