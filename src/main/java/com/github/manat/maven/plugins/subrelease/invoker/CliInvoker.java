@@ -49,7 +49,16 @@ public class CliInvoker implements Invoker {
 
 	@Override
 	public int release() {
-		int result = cli.doMain(new String[] { "--batch-mode", "release:prepare", "-DdryRun=true" }, projectDir,
+		return release(projectDir);
+	}
+
+	@Override
+	public int release(Path projectPath) {
+		return release(projectPath.toString());
+	}
+
+	private int release(String projectPath) {
+		int result = cli.doMain(new String[] { "--batch-mode", "release:clean", "release:prepare" }, projectPath,
 				System.out, System.out);
 
 		return result;

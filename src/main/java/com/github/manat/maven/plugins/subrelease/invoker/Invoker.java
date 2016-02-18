@@ -43,5 +43,19 @@ public interface Invoker {
 	 */
 	int checkout(Artifact artifact, String connection);
 
+	/**
+	 * Executes mvn release:prepare
+	 * 
+	 * @return 0 for success; 1 otherwise
+	 */
 	int release();
+
+	/**
+	 * Executes mvn release:prepare for the given projectPath.
+	 * 
+	 * @param projectPath
+	 *            location of a maven project
+	 * @return 0 for success; 1 otherwise
+	 */
+	int release(Path projectPath);
 }
