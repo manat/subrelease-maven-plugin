@@ -1,5 +1,7 @@
 package com.codedeck.maven.plugins.invoker;
 
+import java.nio.file.Path;
+
 import org.apache.maven.cli.MavenCli;
 
 import com.codedeck.maven.plugins.model.Artifact;
@@ -21,6 +23,14 @@ public class CliInvoker implements Invoker {
 	}
 
 	@Override
+	public int resolveDependency(Artifact artifact, Path output) {
+		int result = cli.doMain(new String[] { "dependency:resolve", "-DoutputFile=" + output.toAbsolutePath() },
+				projectDir, System.out, System.out);
+
+		return result;
+	}
+
+	@Override
 	public int unpackArtifact(Artifact artifact) {
 		int result = cli.doMain(new String[] { "dependency:unpack", "-Dartifact=" + artifact }, projectDir, System.out,
 				System.out);
@@ -38,7 +48,7 @@ public class CliInvoker implements Invoker {
 	}
 
 	@Override
-	public void release() {
+	public int release() {
 		// int result = cli.doMain(new String[] { "release:prepare" },
 		// "C:/dev/maven/dep-a",
 		// System.out, System.out);
@@ -58,6 +68,8 @@ public class CliInvoker implements Invoker {
 				"C:/dev/maven/dep-a", System.out, System.out);
 
 		System.out.println("result=" + result);
+
+		return result;
 	}
 
 }

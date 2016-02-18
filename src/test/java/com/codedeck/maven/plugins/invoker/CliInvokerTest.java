@@ -1,11 +1,18 @@
 package com.codedeck.maven.plugins.invoker;
 
+import static java.nio.file.Files.readAllBytes;
 import static org.hamcrest.core.IsEqual.equalTo;
 import static org.hamcrest.core.IsNot.not;
+import static org.hamcrest.core.StringContains.containsString;
 import static org.junit.Assert.assertThat;
 
+import java.io.IOException;
+import java.nio.file.Path;
+
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TemporaryFolder;
 
 import com.codedeck.maven.plugins.model.Artifact;
 
@@ -15,9 +22,22 @@ public class CliInvokerTest {
 
 	private CliInvoker invoker;
 
+	@Rule
+	public TemporaryFolder outputFolder = new TemporaryFolder();
+
 	@Before
 	public void setUp() {
-		invoker = new CliInvoker("C:/dev/maven/dep-a");
+		invoker = new CliInvoker(".");
+	}
+
+	@Test
+	public void thatResolveDependencyWorks() throws IOException {
+		Artifact artifact = new Artifact("org.slf4j", "slf4j-simple", "1.7.5");
+		Path output = outputFolder.newFile("dep.txt").toPath();
+
+		invoker.resolveDependency(artifact, output);
+
+		assertThat(new String(readAllBytes(output)), containsString("The following files have been resolved:"));
 	}
 
 	@Test
