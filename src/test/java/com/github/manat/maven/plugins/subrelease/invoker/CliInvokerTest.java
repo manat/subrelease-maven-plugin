@@ -75,9 +75,4 @@ public class CliInvokerTest {
 		String connection2 = "scm:git:file://I:/ODC_BKK_Repository/ta2000/Architect/Lab/Maven/hello-maven-plugin";
 		assertThat(invoker.checkout(artifact2, connection2), equalTo(SUCCESS));
 	}
-	
-	@Test
-	public void thatReleaseWorks() {
-		assertThat(invoker.release(), equalTo(SUCCESS));
-	}
 }
