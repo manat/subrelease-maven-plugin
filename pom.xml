@@ -2,15 +2,13 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>com.codedeck.maven.plugins</groupId>
+	<groupId>com.github.manat.maven.plugins</groupId>
 	<artifactId>subrelease-maven-plugin</artifactId>
 	<version>0.1.0-SNAPSHOT</version>
 	<packaging>maven-plugin</packaging>
 
 	<name>subrelease-maven-plugin Maven Plugin</name>
-
-	<!-- FIXME change it to the project's website -->
-	<url>http://maven.apache.org</url>
+	<url>http://manat.github.io/maven/plugins/subrelease</url>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -52,8 +50,8 @@
 			<artifactId>aether-transport-wagon</artifactId>
 			<version>1.1.0</version>
 		</dependency>
-		
-		
+
+
 		<dependency>
 			<groupId>org.apache.maven.wagon</groupId>
 			<artifactId>wagon-http</artifactId>
