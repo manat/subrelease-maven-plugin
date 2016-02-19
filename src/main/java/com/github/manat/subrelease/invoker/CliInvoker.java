@@ -23,7 +23,7 @@ public class CliInvoker implements Invoker {
 	}
 
 	@Override
-	public boolean resolveDependency(Artifact artifact, Path output) {
+	public boolean resolveDependency(Path output) {
 		int result = cli.doMain(new String[] { "dependency:resolve", "-DoutputFile=" + output.toAbsolutePath() },
 				projectDir, System.out, System.out);
 

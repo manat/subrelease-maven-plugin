@@ -31,10 +31,11 @@ public class CliInvokerTest {
 
 	@Test
 	public void thatResolveDependencyWorks() throws IOException {
-		Artifact artifact = new Artifact("org.slf4j", "slf4j-simple", "1.7.5");
+		// Artifact artifact = new Artifact("org.slf4j", "slf4j-simple",
+		// "1.7.5");
 		Path output = outputFolder.newFile("dep.txt").toPath();
 
-		invoker.resolveDependency(artifact, output);
+		invoker.resolveDependency(output);
 
 		assertThat(new String(readAllBytes(output)), containsString("The following files have been resolved:"));
 	}

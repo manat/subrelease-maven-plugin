@@ -14,13 +14,11 @@ public interface Invoker {
 	 * Executes mvn dependency:resolve, then the result will be stored at the
 	 * given output path.
 	 * 
-	 * @param artifact
-	 *            an artifact to find dependencies
 	 * @param output
 	 *            resolved dependencies are stored here
 	 * @return true for success; false otherwise
 	 */
-	boolean resolveDependency(Artifact artifact, Path output);
+	boolean resolveDependency(Path output);
 
 	/**
 	 * Executes mvn dependency:unpack of the given artifact value.
