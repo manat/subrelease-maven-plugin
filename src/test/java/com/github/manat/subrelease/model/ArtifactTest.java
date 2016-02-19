@@ -1,11 +1,9 @@
 package com.github.manat.subrelease.model;
 
-import static org.junit.Assert.assertThat;
 import static org.hamcrest.core.IsEqual.equalTo;
+import static org.junit.Assert.assertThat;
 
 import org.junit.Test;
-
-import com.github.manat.subrelease.model.Artifact;
 
 public class ArtifactTest {
 

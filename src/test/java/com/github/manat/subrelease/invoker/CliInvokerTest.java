@@ -14,7 +14,6 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
-import com.github.manat.subrelease.invoker.CliInvoker;
 import com.github.manat.subrelease.model.Artifact;
 
 public class CliInvokerTest {

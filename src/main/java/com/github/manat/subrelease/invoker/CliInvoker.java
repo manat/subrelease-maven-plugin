@@ -24,8 +24,12 @@ public class CliInvoker implements Invoker {
 
 	@Override
 	public boolean resolveDependency(Path output) {
+		System.out.println("projectDir=" + projectDir);
+		System.out.println("output=" + output.toAbsolutePath());
 		int result = cli.doMain(new String[] { "dependency:resolve", "-DoutputFile=" + output.toAbsolutePath() },
 				projectDir, System.out, System.out);
+		System.out.println("Clean!!!");
+		System.out.println("result=" + result);
 
 		return result == 0;
 	}

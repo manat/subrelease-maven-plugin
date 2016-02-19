@@ -1,7 +1,7 @@
 package com.github.manat.subrelease.reader;
 
-import static org.junit.Assert.assertThat;
 import static org.hamcrest.core.IsEqual.equalTo;
+import static org.junit.Assert.assertThat;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -12,8 +12,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.github.manat.subrelease.model.Artifact;
-import com.github.manat.subrelease.reader.DefaultOutputReader;
-import com.github.manat.subrelease.reader.OutputReader;
 
 public class DefaultOutputReaderTest {
 

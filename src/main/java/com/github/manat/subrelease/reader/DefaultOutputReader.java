@@ -1,11 +1,9 @@
 package com.github.manat.subrelease.reader;
 
+import static java.nio.charset.StandardCharsets.UTF_8;
 import static java.nio.file.Files.readAllBytes;
 
 import java.io.IOException;
-
-import static java.nio.charset.StandardCharsets.UTF_8;
-
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collections;

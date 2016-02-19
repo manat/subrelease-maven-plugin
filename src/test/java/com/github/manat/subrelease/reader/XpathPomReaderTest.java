@@ -12,8 +12,6 @@ import java.util.List;
 import org.junit.Test;
 
 import com.github.manat.subrelease.model.Artifact;
-import com.github.manat.subrelease.reader.PomReader;
-import com.github.manat.subrelease.reader.XpathPomReader;
 
 public class XpathPomReaderTest {
 
