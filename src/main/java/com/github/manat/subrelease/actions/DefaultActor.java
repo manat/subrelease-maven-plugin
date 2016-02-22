@@ -24,7 +24,8 @@ public class DefaultActor implements Subrelease {
 
     @Override
     public boolean unpackArtifact(Artifact artifact) {
-        return invoker.execute(new String[] { "dependency:unpack" }, "artifact=" + artifact);
+        return invoker.execute(new String[] { "dependency:unpack" }, "artifact=" + artifact,
+                "outputDirectory=target/dependency/" + artifact.getArtifactId());
     }
 
     @Override

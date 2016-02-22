@@ -47,7 +47,7 @@ public class XpathPomReader implements PomReader {
             NodeList nl = (NodeList) xPathExpression.evaluate(pomDoc, XPathConstants.NODESET);
 
             if (nl == null || nl.getLength() == 0) {
-                return null;
+                return Collections.emptyList();
             }
 
             List<Artifact> dependencies = new ArrayList<>();
@@ -87,7 +87,7 @@ public class XpathPomReader implements PomReader {
             e.printStackTrace();
         }
 
-        return Collections.<Artifact>emptyList();
+        return Collections.emptyList();
     }
 
     /**
