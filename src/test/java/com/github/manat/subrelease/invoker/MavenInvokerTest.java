@@ -2,11 +2,11 @@ package com.github.manat.subrelease.invoker;
 
 import static java.nio.file.Paths.get;
 
-public class GenericMavenInvokerTest extends InvokerTestBase {
+public class MavenInvokerTest extends InvokerTestBase {
 
     @Override
-    protected InvokerProxy createInvoker() {
-        return new GenericMavenInvoker(
+    protected Invoker createInvoker() {
+        return new MavenInvoker(
                 get("/Users/sid/Workspaces/java/maven/subrelease-maven-plugin/pom.xml"));
     }
 

@@ -7,14 +7,13 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * This class gives base test cases those should be verified through
- * implementation classes.
+ * This class gives base test cases those should be verified through implementation classes.
  */
 public abstract class InvokerTestBase {
 
-    private InvokerProxy invoker;
+    private Invoker invoker;
 
-    abstract InvokerProxy createInvoker();
+    abstract Invoker createInvoker();
 
     @Before
     public void setUp() {
@@ -30,8 +29,8 @@ public abstract class InvokerTestBase {
 
     @Test
     public void testExecuteDependencyResolve() throws Exception {
-        boolean result = invoker.execute(new String[] { "dependency:resolve" },
-                "outputFile=resolvedDep.txt");
+        boolean result = invoker
+                .execute(new String[] { "dependency:resolve" }, "outputFile=resolvedDep.txt");
 
         assertThat(result, equalTo(true));
     }
@@ -39,8 +38,7 @@ public abstract class InvokerTestBase {
     @Test
     public void testExecuteReleasePrepareWithOptions() throws Exception {
         boolean result = invoker
-                .execute(new String[] { "dependency:tree" }, "scope=compile",
-                        "verbose=true");
+                .execute(new String[] { "dependency:tree" }, "scope=compile", "verbose=true");
 
         assertThat(result, equalTo(true));
     }

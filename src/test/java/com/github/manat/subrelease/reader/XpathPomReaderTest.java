@@ -6,74 +6,75 @@ import static org.hamcrest.core.IsEqual.equalTo;
 import static org.hamcrest.core.IsNull.nullValue;
 import static org.junit.Assert.assertThat;
 
+import com.github.manat.subrelease.model.Artifact;
+import org.junit.Test;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.Test;
-
-import com.github.manat.subrelease.model.Artifact;
-
 public class XpathPomReaderTest {
 
-	private PomReader pomReader;
+    private PomReader pomReader;
 
-	private List<Artifact> expectedDeps;
+    private List<Artifact> expectedDeps;
 
-	@Test
-	public void thatGetDependencyListOfSingleSnapshot() {
-		Artifact dep1 = new Artifact();
-		dep1.setGroupId("com.codedeck.sample");
-		dep1.setArtifactId("dep-a");
-		dep1.setVersion("0.0.1-SNAPSHOT");
+    @Test
+    public void thatGetDependencyListOfSingleSnapshot() {
+        Artifact dep1 = new Artifact();
+        dep1.setGroupId("com.codedeck.sample");
+        dep1.setArtifactId("dep-a");
+        dep1.setVersion("0.0.1-SNAPSHOT");
 
-		expectedDeps = new ArrayList<>(1);
-		expectedDeps.add(dep1);
+        expectedDeps = new ArrayList<>(1);
+        expectedDeps.add(dep1);
 
-		pomReader = new XpathPomReader(get("src/test/resources/reader/pom/pom-with-snapshot.xml"));
+        pomReader = new XpathPomReader(get("src/test/resources/reader/pom/pom-with-snapshot.xml"));
 
-		List<Artifact> dependencies = pomReader.getSnapshotDependencies();
+        List<Artifact> dependencies = pomReader.getSnapshotDependencies();
 
-		assertThat(dependencies, equalTo(expectedDeps));
-	}
+        assertThat(dependencies, equalTo(expectedDeps));
+    }
 
-	@Test
-	public void thatGetDependencyListOfMultipleSnapshot() {
-		Artifact dep1 = new Artifact();
-		dep1.setGroupId("com.codedeck.sample");
-		dep1.setArtifactId("dep-a");
-		dep1.setVersion("0.0.1-SNAPSHOT");
+    @Test
+    public void thatGetDependencyListOfMultipleSnapshot() {
+        Artifact dep1 = new Artifact();
+        dep1.setGroupId("com.codedeck.sample");
+        dep1.setArtifactId("dep-a");
+        dep1.setVersion("0.0.1-SNAPSHOT");
 
-		Artifact dep2 = new Artifact();
-		dep2.setGroupId("com.codedeck.sample");
-		dep2.setArtifactId("dep-b");
-		dep2.setVersion("0.0.1-SNAPSHOT");
+        Artifact dep2 = new Artifact();
+        dep2.setGroupId("com.codedeck.sample");
+        dep2.setArtifactId("dep-b");
+        dep2.setVersion("0.0.1-SNAPSHOT");
 
-		expectedDeps = new ArrayList<>(2);
-		expectedDeps.add(dep1);
-		expectedDeps.add(dep2);
+        expectedDeps = new ArrayList<>(2);
+        expectedDeps.add(dep1);
+        expectedDeps.add(dep2);
 
-		pomReader = new XpathPomReader(get("src/test/resources/reader/pom/pom-with-multiple-snapshots.xml"));
+        pomReader = new XpathPomReader(
+                get("src/test/resources/reader/pom/pom-with-multiple-snapshots.xml"));
 
-		List<Artifact> dependencies = pomReader.getSnapshotDependencies();
+        List<Artifact> dependencies = pomReader.getSnapshotDependencies();
 
-		assertThat(dependencies, equalTo(expectedDeps));
-	}
+        assertThat(dependencies, equalTo(expectedDeps));
+    }
 
-	@Test
-	public void thatGetDependencyListOfNoSnapshot() {
-		pomReader = new XpathPomReader(get("src/test/resources/reader/pom/pom-with-no-snapshot.xml"));
+    @Test
+    public void thatGetDependencyListOfNoSnapshot() {
+        pomReader = new XpathPomReader(
+                get("src/test/resources/reader/pom/pom-with-no-snapshot.xml"));
 
-		List<Artifact> dependencies = pomReader.getSnapshotDependencies();
+        List<Artifact> dependencies = pomReader.getSnapshotDependencies();
 
-		assertThat(dependencies, is(nullValue()));
-	}
+        assertThat(dependencies, is(nullValue()));
+    }
 
-	@Test
-	public void thatGetScmConnectionWorks() {
-		pomReader = new XpathPomReader(get("src/test/resources/reader/pom/pom-with-scm.xml"));
+    @Test
+    public void thatGetScmConnectionWorks() {
+        pomReader = new XpathPomReader(get("src/test/resources/reader/pom/pom-with-scm.xml"));
 
-		String connection = pomReader.getScmConnection();
+        String connection = pomReader.getScmConnection();
 
-		assertThat(connection, is(equalTo("scm:git:https://github.com/apache/maven-release.git")));
-	}
+        assertThat(connection, is(equalTo("scm:git:https://github.com/apache/maven-release.git")));
+    }
 }
