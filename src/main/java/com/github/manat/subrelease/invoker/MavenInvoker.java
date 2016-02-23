@@ -1,16 +1,10 @@
 package com.github.manat.subrelease.invoker;
 
-import static java.nio.file.Paths.get;
-
-import org.apache.maven.shared.invoker.DefaultInvocationRequest;
-import org.apache.maven.shared.invoker.DefaultInvoker;
-import org.apache.maven.shared.invoker.InvocationRequest;
-import org.apache.maven.shared.invoker.InvocationResult;
-import org.apache.maven.shared.invoker.Invoker;
-import org.apache.maven.shared.invoker.MavenInvocationException;
-
 import java.nio.file.Path;
 import java.util.List;
+
+import org.apache.maven.shared.invoker.*;
+import org.apache.maven.shared.invoker.Invoker;
 
 /**
  * An implementation of @{Invoker}, using maven-invoker-plugin.
@@ -31,7 +25,6 @@ public class MavenInvoker extends AbstractInvoker {
         req.setGoals(goals);
 
         Invoker invoker = new DefaultInvoker();
-        invoker.setMavenHome(get("/usr/local/Cellar/maven/3.3.9/libexec").toFile());
         InvocationResult result;
         try {
             result = invoker.execute(req);
@@ -40,6 +33,13 @@ public class MavenInvoker extends AbstractInvoker {
             return false;
         }
 
-        return result.getExitCode() == 0;
+        if (result.getExitCode() == 0) {
+            return true;
+        } else {
+            System.err.println(
+                    "MavenInvoker.execute = " + result.getExecutionException().getMessage());
+            return false;
+        }
+
     }
 }

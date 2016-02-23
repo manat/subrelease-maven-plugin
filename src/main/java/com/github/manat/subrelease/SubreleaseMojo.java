@@ -14,12 +14,15 @@ import com.github.manat.subrelease.reader.DefaultOutputReader;
 import com.github.manat.subrelease.reader.OutputReader;
 import com.github.manat.subrelease.reader.PomReader;
 import com.github.manat.subrelease.reader.XpathPomReader;
+import com.github.manat.subrelease.writer.FileWriter;
+import com.github.manat.subrelease.writer.PomWriter;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.Mojo;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -59,8 +62,13 @@ public class SubreleaseMojo extends AbstractSubreleaseMojo {
                 }
             }
 
-            for (Artifact artifact : snapshotDependencies) {
+            PomWriter pomWriter = new FileWriter(get(baseDir));
+            pomWriter.updateSnapshotVersion(snapshotDependencies);
 
+            if (actor.commit()) {
+                if (actor.release()) {
+                    System.out.println("Subrelease Completed at: " + Calendar.getInstance());
+                }
             }
         }
     }

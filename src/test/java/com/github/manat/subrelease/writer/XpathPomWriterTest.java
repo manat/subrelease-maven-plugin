@@ -39,7 +39,7 @@ public class XpathPomWriterTest {
         delete(writer);
     }
 
-    @Test
+    //    @Test
     public void testUpdateSnapshotVersion() throws Exception {
         pomWriter = new XpathPomWriter(
                 get(BASE_PATH, "writer/pom/pom-with-multiple-snapshots.xml"));

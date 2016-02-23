@@ -1,16 +1,16 @@
 package com.github.manat.subrelease.reader;
 
 import static java.nio.file.Paths.get;
+import static org.hamcrest.collection.IsEmptyCollection.empty;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsEqual.equalTo;
-import static org.hamcrest.core.IsNull.nullValue;
 import static org.junit.Assert.assertThat;
-
-import com.github.manat.subrelease.model.Artifact;
-import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import com.github.manat.subrelease.model.Artifact;
+import org.junit.Test;
 
 public class XpathPomReaderTest {
 
@@ -66,7 +66,7 @@ public class XpathPomReaderTest {
 
         List<Artifact> dependencies = pomReader.getSnapshotDependencies();
 
-        assertThat(dependencies, is(nullValue()));
+        assertThat(dependencies, is(empty()));
     }
 
     @Test

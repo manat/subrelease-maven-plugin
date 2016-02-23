@@ -36,9 +36,16 @@ public interface Subrelease {
     boolean checkout(Artifact artifact, String connection);
 
     /**
-     * Executes mvn release:prepare
+     * Executes mvn release:prepare.
      *
      * @return true for success; false otherwise
      */
     boolean release();
+
+    /**
+     * Executes mvn scm:checkin to commit any changes within the repository.
+     *
+     * @return true for success; false otherwise
+     */
+    boolean commit();
 }

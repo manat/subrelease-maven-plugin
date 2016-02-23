@@ -6,8 +6,7 @@ public class MavenInvokerTest extends InvokerTestBase {
 
     @Override
     protected Invoker createInvoker() {
-        return new MavenInvoker(
-                get("/Users/sid/Workspaces/java/maven/subrelease-maven-plugin/pom.xml"));
+        return new MavenInvoker(get("pom.xml"));
     }
 
 }

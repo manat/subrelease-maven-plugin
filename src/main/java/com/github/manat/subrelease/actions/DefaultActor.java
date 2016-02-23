@@ -40,4 +40,10 @@ public class DefaultActor implements Subrelease {
     public boolean release() {
         return invoker.execute(new String[] { "--batch-mode", "release:clean", "release:prepare" });
     }
+
+    @Override
+    public boolean commit() {
+        return invoker.execute(new String[] { "scm:checkin" },
+                "message=[subrelease-maven-plugin] Resolved any SNAPSHOT dependencies.");
+    }
 }
