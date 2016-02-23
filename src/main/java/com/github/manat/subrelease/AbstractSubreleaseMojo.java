@@ -20,6 +20,6 @@ public abstract class AbstractSubreleaseMojo extends AbstractMojo {
     /**
      * Location where the code of dependency projects are resided.
      */
-    @Parameter(defaultValue = "${project.build.directory}/dependency/workspace", property = "dependencyWorkspace", required = true)
+    @Parameter(defaultValue = "${project.build.directory}/dependency/workspace/", property = "dependencyWorkspace", required = true)
     String dependencyWorkspace;
 }

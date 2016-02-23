@@ -10,6 +10,8 @@ import java.nio.file.Path;
  */
 public class DefaultActor implements Subrelease {
 
+    public static final String BASE_WORKSPACE = "target/dependency/workspace/";
+
     private Invoker invoker;
 
     public DefaultActor(Invoker invoker) {
@@ -25,14 +27,14 @@ public class DefaultActor implements Subrelease {
     @Override
     public boolean unpackArtifact(Artifact artifact) {
         return invoker.execute(new String[] { "dependency:unpack" }, "artifact=" + artifact,
-                "outputDirectory=target/dependency/" + artifact.getArtifactId());
+                "outputDirectory=" + BASE_WORKSPACE + artifact.getArtifactId());
     }
 
     @Override
     public boolean checkout(Artifact artifact, String connection) {
         return invoker
                 .execute(new String[] { "scm:checkout" }, "connectionType=developerConnection",
-                        "checkoutDirectory=target/checkout/" + artifact.getArtifactId(),
+                        "checkoutDirectory=" + BASE_WORKSPACE + artifact.getArtifactId(),
                         "developerConnectionUrl=" + connection);
     }
 
@@ -42,8 +44,13 @@ public class DefaultActor implements Subrelease {
     }
 
     @Override
+    public boolean perform() {
+        return invoker.execute(new String[] { "--batch-mode", "release:perform" });
+    }
+
+    @Override
     public boolean commit() {
         return invoker.execute(new String[] { "scm:checkin" },
-                "message=[subrelease-maven-plugin] Resolved any SNAPSHOT dependencies.");
+                "message=\"[subrelease-maven-plugin] Resolved any SNAPSHOT dependencies.\"");
     }
 }

@@ -23,9 +23,12 @@ public class FileWriter implements PomWriter {
 
     @Override
     public boolean updateSnapshotVersion(List<Artifact> artifacts) {
+        System.out.println("Starts updating snapshot version.");
         try {
             String content = new String(readAllBytes(pomPath), UTF_8);
+            content = content.replaceFirst("-SNAPSHOT", "-SNAP_SH_OT");
             content = content.replaceAll("-SNAPSHOT", "");
+            content = content.replaceFirst("-SNAP_SH_OT", "-SNAPSHOT");
             write(pomPath, content.getBytes(UTF_8));
 
             return true;

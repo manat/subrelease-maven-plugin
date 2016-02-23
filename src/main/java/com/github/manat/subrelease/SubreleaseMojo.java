@@ -44,25 +44,35 @@ public class SubreleaseMojo extends AbstractSubreleaseMojo {
         Path resolvedDepPath = get(baseDir, "resolvedDependency.txt");
         if (actor.resolveDependency(resolvedDepPath)) {
             OutputReader reader = new DefaultOutputReader();
-            List<Artifact> artifacts = reader.getResolvedArtifacts(resolvedDepPath);
+            List<Artifact> artifacts = reader.getResolvedSnapshotArtifacts(resolvedDepPath);
 
             for (Artifact artifact : artifacts) {
                 actor.unpackArtifact(artifact);
                 Path subProjectPath = get(dependencyWorkspace, artifact.getArtifactId());
-                PomReader pomReader = new XpathPomReader(subProjectPath);
+                Path sumProjectPomPath = get(subProjectPath.toString(), "META-INF", "maven",
+                        artifact.getGroupId(), artifact.getArtifactId(), "pom.xml");
+
+                System.out.println(
+                        "\n\n\nsumProjectPomPath: " + sumProjectPomPath.toString() + "\n\n\n");
+
+                PomReader pomReader = new XpathPomReader(sumProjectPomPath);
                 String connection = pomReader.getScmConnection();
 
+                System.out.println("\n\nStart Checking out: " + connection + "\n\n");
                 if (actor.checkout(artifact, connection)) {
                     Invoker subInvoker = new MavenInvoker(subProjectPath);
                     Subrelease subActor = new DefaultActor(subInvoker);
 
-                    if (subActor.release()) {
+                    if (subActor.release() && subActor.perform()) {
+                        System.out.println(
+                                "\n\n\nSubactor Release Completed (" + artifact.toString()
+                                        + ")\n\n\n");
                         snapshotDependencies.add(artifact);
                     }
                 }
             }
 
-            PomWriter pomWriter = new FileWriter(get(baseDir));
+            PomWriter pomWriter = new FileWriter(get(baseDir, "pom.xml"));
             pomWriter.updateSnapshotVersion(snapshotDependencies);
 
             if (actor.commit()) {

@@ -43,6 +43,13 @@ public interface Subrelease {
     boolean release();
 
     /**
+     * Executes mvn release:perform which bacically to deploy artifacts.
+     *
+     * @return true for success; false otherwise
+     */
+    boolean perform();
+
+    /**
      * Executes mvn scm:checkin to commit any changes within the repository.
      *
      * @return true for success; false otherwise

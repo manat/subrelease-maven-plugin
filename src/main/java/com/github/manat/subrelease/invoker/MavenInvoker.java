@@ -19,6 +19,8 @@ public class MavenInvoker extends AbstractInvoker {
 
     @Override
     public boolean execute(String[] commands, String... options) {
+        assert commands != null;
+
         List<String> goals = prepareArgs(commands, options);
         InvocationRequest req = new DefaultInvocationRequest();
         req.setPomFile(pomPath.toFile());
@@ -36,8 +38,7 @@ public class MavenInvoker extends AbstractInvoker {
         if (result.getExitCode() == 0) {
             return true;
         } else {
-            System.err.println(
-                    "MavenInvoker.execute = " + result.getExecutionException().getMessage());
+            System.err.println("MavenInvoker.execute = " + result.getExecutionException());
             return false;
         }
 

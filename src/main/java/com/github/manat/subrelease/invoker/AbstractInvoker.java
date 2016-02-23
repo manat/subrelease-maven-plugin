@@ -13,12 +13,14 @@ import java.util.List;
 public abstract class AbstractInvoker implements Invoker {
 
     List<String> prepareArgs(String[] commands, String[] options) {
-        List<String> args = new ArrayList<>(commands.length + options.length);
+        List<String> args = new ArrayList<>();
 
         args.addAll(Arrays.asList(commands));
-        for (String opt : options) {
-            if (!opt.startsWith("-D")) {
-                args.add("-D" + opt);
+        if (options != null) {
+            for (String opt : options) {
+                if (!opt.startsWith("-D")) {
+                    args.add("-D" + opt);
+                }
             }
         }
 
