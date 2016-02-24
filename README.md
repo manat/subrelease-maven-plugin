@@ -32,8 +32,9 @@ You're also right that this problem may be resolved by going as multi-module, so
 ### Install
 
 There are two options at the moment: 
+
 1. Clone this project, then executes `mvn install` to install this plugin into your local repository
-2. Download [0.1.0.zip plugin], then put it into your local repository
+2. Download [0.1.0.zip](https://github.com/manat/subrelease-maven-plugin/releases/download/v0.1.0/0.1.0.zip) plugin, then unzip it to your local repository
 
 ### Command
 
