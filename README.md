@@ -27,3 +27,36 @@ You're also right that this problem may be resolved by going as multi-module, so
 * Update POM to use released version instead of SNAPSHOT
 * Goes through the perfect release phases of maven-release-plugin
 
+## Usage
+
+There are 2 available goals at the moment:
+* **prepare** to release any SNAPSHOT dependencies, then updating current pom.xml to be ready for releasing
+* **release** to basically executes release:prepare of standard maven-release-plugin
+
+### prepare
+
+It performs the following steps:
+
+1. Resolves a list of snapshot dependencies. If there is none, then the prepare process is finished
+2. For each of dependency
+  1. Verifies if this dependency has already been released
+  2. Otherwise, performs a release
+3. Once all of the snapshot dependencies are released, the project's pom will be updated to use released version instead of SNAPSHOT for those belong to #2
+4. Commit change of pom 
+
+
+Please note that **prepare** goal can be run repeatedly until #3 is satified.
+
+### release
+
+This basically performs [release:prepare](http://maven.apache.org/maven-release/maven-release-plugin/prepare-mojo.html) of standard maven-release-plugin.
+
+## Contribution
+
+There is A LOT that you could help. 
+
+1. Use the [issue tracker](https://github.com/manat/subrelease-maven-plugin/issues) to contribute ideas, or reporting bugs
+2. If you have code to contribute
+  1. Push your changes to a topic branch in your fork of the repository.
+  2. Submit a pull request to the repository
+  3. If things go well, then everyone is happy
