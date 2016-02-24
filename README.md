@@ -29,6 +29,24 @@ You're also right that this problem may be resolved by going as multi-module, so
 
 ## Usage
 
+### Install
+
+There are two options at the moment: 
+1. Clone this project, then executes `mvn install` to install this plugin into your local repository
+2. Download [0.1.0.zip plugin], then put it into your local repository
+
+### Command
+
+`mvn com.github.manat:subrelease-maven-plugin:[version]:[goal]`
+
+For example:
+
+```bash
+mvn com.github.manat:subrelease-maven-plugin:0.1.0:prepare
+```
+
+## Goals
+
 There are 2 available goals at the moment:
 * **prepare** to release any SNAPSHOT dependencies, then updating current pom.xml to be ready for releasing
 * **release** to basically executes release:prepare of standard maven-release-plugin
