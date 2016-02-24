@@ -1,11 +1,9 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.github.manat</groupId>
     <artifactId>subrelease-maven-plugin</artifactId>
-    <version>0.1.0-SNAPSHOT</version>
+    <version>0.1.0</version>
     <packaging>maven-plugin</packaging>
 
     <name>subrelease-maven-plugin Maven Plugin</name>
@@ -22,7 +20,8 @@
     <scm>
         <developerConnection>scm:git:https://github.com/manat/subrelease-maven-plugin.git
         </developerConnection>
-    </scm>
+      <tag>v0.1.0</tag>
+  </scm>
 
     <dependencies>
         <!-- Maven Plugin -->
