@@ -5,11 +5,15 @@ import java.util.List;
 
 import org.apache.maven.shared.invoker.*;
 import org.apache.maven.shared.invoker.Invoker;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * An implementation of @{Invoker}, using maven-invoker-plugin.
  */
 public class MavenInvoker extends AbstractInvoker {
+
+    private final Logger logger = LoggerFactory.getLogger(MavenInvoker.class);
 
     private Path pomPath;
 
@@ -35,12 +39,11 @@ public class MavenInvoker extends AbstractInvoker {
             return false;
         }
 
-        if (result.getExitCode() == 0) {
-            return true;
-        } else {
-            System.err.println("MavenInvoker.execute = " + result.getExecutionException());
-            return false;
+        if (result.getExecutionException() != null) {
+            logger.error("An error is found during maven execution:\n{}",
+                    result.getExecutionException().getMessage());
         }
 
+        return result.getExitCode() == 0;
     }
 }

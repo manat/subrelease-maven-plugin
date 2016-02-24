@@ -14,11 +14,13 @@ import com.github.manat.subrelease.reader.DefaultOutputReader;
 import com.github.manat.subrelease.reader.OutputReader;
 import com.github.manat.subrelease.reader.PomReader;
 import com.github.manat.subrelease.reader.XpathPomReader;
-import com.github.manat.subrelease.writer.FileWriter;
+import com.github.manat.subrelease.writer.StringContentWriter;
 import com.github.manat.subrelease.writer.PomWriter;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.Mojo;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -35,6 +37,8 @@ import java.util.List;
 @Mojo(name = "prepare", aggregator = true)
 public class SubreleaseMojo extends AbstractSubreleaseMojo {
 
+    private final Logger logger = LoggerFactory.getLogger(SubreleaseMojo.class);
+
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
         Invoker invoker = new MavenInvoker(get(baseDir));
@@ -47,38 +51,32 @@ public class SubreleaseMojo extends AbstractSubreleaseMojo {
             List<Artifact> artifacts = reader.getResolvedSnapshotArtifacts(resolvedDepPath);
 
             for (Artifact artifact : artifacts) {
+                logger.debug("Starts unpacking: {}.", artifact);
                 actor.unpackArtifact(artifact);
                 Path subProjectPath = get(dependencyWorkspace, artifact.getArtifactId());
                 Path sumProjectPomPath = get(subProjectPath.toString(), "META-INF", "maven",
                         artifact.getGroupId(), artifact.getArtifactId(), "pom.xml");
 
-                System.out.println(
-                        "\n\n\nsumProjectPomPath: " + sumProjectPomPath.toString() + "\n\n\n");
-
                 PomReader pomReader = new XpathPomReader(sumProjectPomPath);
                 String connection = pomReader.getScmConnection();
 
-                System.out.println("\n\nStart Checking out: " + connection + "\n\n");
+                logger.info("Starts Checking out: {} from url={}.", artifact, connection);
                 if (actor.checkout(artifact, connection)) {
                     Invoker subInvoker = new MavenInvoker(subProjectPath);
                     Subrelease subActor = new DefaultActor(subInvoker);
 
                     if (subActor.release() && subActor.perform()) {
-                        System.out.println(
-                                "\n\n\nSubactor Release Completed (" + artifact.toString()
-                                        + ")\n\n\n");
+                        logger.info("Subactor for ({}) has released completely.");
                         snapshotDependencies.add(artifact);
                     }
                 }
             }
 
-            PomWriter pomWriter = new FileWriter(get(baseDir, "pom.xml"));
+            PomWriter pomWriter = new StringContentWriter(get(baseDir, "pom.xml"));
             pomWriter.updateSnapshotVersion(snapshotDependencies);
 
-            if (actor.commit()) {
-                if (actor.release()) {
-                    System.out.println("Subrelease Completed at: " + Calendar.getInstance());
-                }
+            if (actor.commit() && actor.release()) {
+                logger.info("Subrelease Completed at {}.", Calendar.getInstance());
             }
         }
     }
