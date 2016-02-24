@@ -20,7 +20,7 @@ public class DefaultOutputReader implements OutputReader {
     public List<Dependency> getResolvedArtifacts(Path outputFile) {
         try {
             String output = new String(readAllBytes(outputFile), UTF_8.name());
-            String[] rawArtifacts = output.split("[\\r\\n]+\\s");
+            String[] rawArtifacts = output.trim().split("[\\r\\n]+\\s");
             List<Dependency> dependencies = new ArrayList<>();
 
             for (int i = 1; i < rawArtifacts.length; i++) {
