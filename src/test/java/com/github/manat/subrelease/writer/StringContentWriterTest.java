@@ -13,11 +13,11 @@ import org.junit.Test;
 
 import java.util.Collections;
 
-public class FileWriterTest extends AbstractPomWriterTest {
+public class StringContentWriterTest extends AbstractPomWriterTest {
 
     @Test
     public void testUpdateSnapshotVersion() throws Exception {
-        pomWriter = new FileWriter(get(BASE_PATH, "writer/pom/pom-with-multiple-snapshots.xml"));
+        pomWriter = new StringContentWriter(get(BASE_PATH, "writer/pom/pom-with-multiple-snapshots.xml"));
         assertThat(pomWriter.updateSnapshotVersion(Collections.<Artifact>emptyList()),
                 equalTo(true));
 

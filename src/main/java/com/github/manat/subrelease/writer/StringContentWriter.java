@@ -13,17 +13,16 @@ import java.util.List;
 /**
  * Manipulates pom content by scanning file content.
  */
-public class FileWriter implements PomWriter {
+public class StringContentWriter implements PomWriter {
 
     private Path pomPath;
 
-    public FileWriter(Path pomPath) {
+    public StringContentWriter(Path pomPath) {
         this.pomPath = pomPath;
     }
 
     @Override
     public boolean updateSnapshotVersion(List<Artifact> artifacts) {
-        System.out.println("Starts updating snapshot version.");
         try {
             String content = new String(readAllBytes(pomPath), UTF_8);
             content = content.replaceFirst("-SNAPSHOT", "-SNAP_SH_OT");
@@ -32,6 +31,7 @@ public class FileWriter implements PomWriter {
             write(pomPath, content.getBytes(UTF_8));
 
             return true;
+
         } catch (IOException e) {
             e.printStackTrace();
         }
