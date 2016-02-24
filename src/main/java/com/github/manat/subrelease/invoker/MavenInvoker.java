@@ -40,6 +40,8 @@ public class MavenInvoker extends AbstractInvoker {
         }
 
         if (result.getExecutionException() != null) {
+            logger.error("---------------------------------------------");
+            logger.error("----- \t\tSubrelease Execution Failed\t\t -----");
             logger.error("An error is found during maven execution:\n{}",
                     result.getExecutionException().getMessage());
         }

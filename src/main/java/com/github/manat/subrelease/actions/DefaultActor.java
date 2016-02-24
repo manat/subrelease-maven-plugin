@@ -39,6 +39,11 @@ public class DefaultActor implements Subrelease {
     }
 
     @Override
+    public boolean exists(Dependency dependency) {
+        return invoker.execute(new String[] { "dependency:get" }, "artifact=" + dependency);
+    }
+
+    @Override
     public boolean release() {
         return invoker.execute(new String[] { "--batch-mode", "release:clean", "release:prepare" });
     }

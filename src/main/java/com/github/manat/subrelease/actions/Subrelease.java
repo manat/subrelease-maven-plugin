@@ -21,7 +21,7 @@ public interface Subrelease {
     /**
      * Executes mvn dependency:unpack of the given dependency value.
      *
-     * @param dependency an Dependency to be unpack
+     * @param dependency a Dependency to be unpack
      * @return true for success; false otherwise
      */
     boolean unpackArtifact(Dependency dependency);
@@ -29,11 +29,20 @@ public interface Subrelease {
     /**
      * Executes mvn scm:checkout of the given dependency, using provided connection.
      *
-     * @param dependency   an Dependency to be checkout
+     * @param dependency a Dependency to be checkout
      * @param connection an information indicates scm type and connection url
      * @return true for success; false otherwise
      */
     boolean checkout(Dependency dependency, String connection);
+
+    /**
+     * Executes mvn dependency:get to find out if a certain version of the given dependency/artifact
+     * has been released.
+     *
+     * @param dependency a Dependency to verify
+     * @return true if the given dependency has been released
+     */
+    boolean exists(Dependency dependency);
 
     /**
      * Executes mvn release:prepare.

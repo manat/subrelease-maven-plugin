@@ -42,4 +42,20 @@ public abstract class InvokerTestBase {
 
         assertThat(result, equalTo(true));
     }
+
+    @Test
+    public void testExecuteDependencyGet() {
+        boolean result = invoker
+                .execute(new String[] { "dependency:get" }, "artifact=junit:junit:4.12");
+
+        assertThat(result, equalTo(true));
+    }
+
+    @Test
+    public void testExecuteDependencyGetWhichDoesNotExist() {
+        boolean result = invoker
+                .execute(new String[] { "dependency:get" }, "artifact=junit:junit:90000");
+
+        assertThat(result, equalTo(false));
+    }
 }
