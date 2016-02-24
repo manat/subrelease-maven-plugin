@@ -1,6 +1,6 @@
 package com.github.manat.subrelease.reader;
 
-import com.github.manat.subrelease.model.Artifact;
+import com.github.manat.subrelease.model.Dependency;
 
 import java.util.List;
 
@@ -14,7 +14,7 @@ public interface PomReader {
      *
      * @return a list of dependency those are snapshots; empty collection otherwise
      */
-    List<Artifact> getSnapshotDependencies();
+    List<Dependency> getSnapshotDependencies();
 
     /**
      * Retrieves a scm connection from pom.

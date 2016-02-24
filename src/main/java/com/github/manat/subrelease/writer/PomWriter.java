@@ -1,6 +1,6 @@
 package com.github.manat.subrelease.writer;
 
-import com.github.manat.subrelease.model.Artifact;
+import com.github.manat.subrelease.model.Dependency;
 
 import java.util.List;
 
@@ -12,8 +12,8 @@ public interface PomWriter {
     /**
      * Updates version of the given artifact by removing -SNAPSHOT off their version.
      *
-     * @param artifacts the given SNAPSHOT dependencies
+     * @param dependencies the given SNAPSHOT dependencies
      * @return true if success; false otherwise
      */
-    boolean updateSnapshotVersion(List<Artifact> artifacts);
+    boolean updateSnapshotVersion(List<Dependency> dependencies);
 }

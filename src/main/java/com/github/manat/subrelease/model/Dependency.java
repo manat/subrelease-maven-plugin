@@ -3,7 +3,7 @@ package com.github.manat.subrelease.model;
 /**
  * Model class to represent artifact information.
  */
-public class Artifact {
+public class Dependency {
 
     private String groupId;
 
@@ -11,11 +11,11 @@ public class Artifact {
 
     private String version;
 
-    public Artifact() {
+    public Dependency() {
         // Intentionally left blank.
     }
 
-    public Artifact(String rawDependency) {
+    public Dependency(String rawDependency) {
         String[] items = rawDependency.trim().split("\\:");
 
         this.groupId = items[0];
@@ -23,7 +23,7 @@ public class Artifact {
         this.version = items[3];
     }
 
-    public Artifact(String groupId, String artifactId, String version) {
+    public Dependency(String groupId, String artifactId, String version) {
         this.groupId = groupId;
         this.artifactId = artifactId;
         this.version = version;
@@ -71,7 +71,7 @@ public class Artifact {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        Artifact other = (Artifact) obj;
+        Dependency other = (Dependency) obj;
         if (artifactId == null) {
             if (other.artifactId != null)
                 return false;

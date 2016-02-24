@@ -9,7 +9,7 @@ import com.github.manat.subrelease.actions.DefaultActor;
 import com.github.manat.subrelease.actions.Subrelease;
 import com.github.manat.subrelease.invoker.Invoker;
 import com.github.manat.subrelease.invoker.MavenInvoker;
-import com.github.manat.subrelease.model.Artifact;
+import com.github.manat.subrelease.model.Dependency;
 import com.github.manat.subrelease.reader.DefaultOutputReader;
 import com.github.manat.subrelease.reader.OutputReader;
 import com.github.manat.subrelease.reader.PomReader;
@@ -43,31 +43,31 @@ public class SubreleaseMojo extends AbstractSubreleaseMojo {
     public void execute() throws MojoExecutionException, MojoFailureException {
         Invoker invoker = new MavenInvoker(get(baseDir));
         Subrelease actor = new DefaultActor(invoker);
-        List<Artifact> snapshotDependencies = new ArrayList<>();
+        List<Dependency> snapshotDependencies = new ArrayList<>();
 
         Path resolvedDepPath = get(baseDir, "resolvedDependency.txt");
         if (actor.resolveDependency(resolvedDepPath)) {
             OutputReader reader = new DefaultOutputReader();
-            List<Artifact> artifacts = reader.getResolvedSnapshotArtifacts(resolvedDepPath);
+            List<Dependency> dependencies = reader.getResolvedSnapshotArtifacts(resolvedDepPath);
 
-            for (Artifact artifact : artifacts) {
-                logger.debug("Starts unpacking: {}.", artifact);
-                actor.unpackArtifact(artifact);
-                Path subProjectPath = get(dependencyWorkspace, artifact.getArtifactId());
+            for (Dependency dependency : dependencies) {
+                logger.debug("Starts unpacking: {}.", dependency);
+                actor.unpackArtifact(dependency);
+                Path subProjectPath = get(dependencyWorkspace, dependency.getArtifactId());
                 Path sumProjectPomPath = get(subProjectPath.toString(), "META-INF", "maven",
-                        artifact.getGroupId(), artifact.getArtifactId(), "pom.xml");
+                        dependency.getGroupId(), dependency.getArtifactId(), "pom.xml");
 
                 PomReader pomReader = new XpathPomReader(sumProjectPomPath);
                 String connection = pomReader.getScmConnection();
 
-                logger.info("Starts Checking out: {} from url={}.", artifact, connection);
-                if (actor.checkout(artifact, connection)) {
+                logger.info("Starts Checking out: {} from url={}.", dependency, connection);
+                if (actor.checkout(dependency, connection)) {
                     Invoker subInvoker = new MavenInvoker(subProjectPath);
                     Subrelease subActor = new DefaultActor(subInvoker);
 
                     if (subActor.release() && subActor.perform()) {
                         logger.info("Subactor for ({}) has released completely.");
-                        snapshotDependencies.add(artifact);
+                        snapshotDependencies.add(dependency);
                     }
                 }
             }

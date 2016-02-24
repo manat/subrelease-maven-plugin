@@ -5,14 +5,14 @@ import static org.junit.Assert.assertThat;
 
 import org.junit.Test;
 
-public class ArtifactTest {
+public class DependencyTest {
 
     @Test
     public void thatArtifactCanBeCreatedFromRawDependency() {
         String dep = "  com.codedeck.sample:dep-a:jar:0.0.1-SNAPSHOT:compile";
-        Artifact expected = new Artifact("com.codedeck.sample", "dep-a", "0.0.1-SNAPSHOT");
+        Dependency expected = new Dependency("com.codedeck.sample", "dep-a", "0.0.1-SNAPSHOT");
 
-        Artifact actual = new Artifact(dep);
+        Dependency actual = new Dependency(dep);
 
         assertThat(actual, equalTo(expected));
     }

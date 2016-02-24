@@ -4,7 +4,7 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 import static java.nio.file.Files.readAllBytes;
 import static java.nio.file.Files.write;
 
-import com.github.manat.subrelease.model.Artifact;
+import com.github.manat.subrelease.model.Dependency;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -22,7 +22,7 @@ public class StringContentWriter implements PomWriter {
     }
 
     @Override
-    public boolean updateSnapshotVersion(List<Artifact> artifacts) {
+    public boolean updateSnapshotVersion(List<Dependency> dependencies) {
         try {
             String content = new String(readAllBytes(pomPath), UTF_8);
             content = content.replaceFirst("-SNAPSHOT", "-SNAP_SH_OT");

@@ -1,6 +1,6 @@
 package com.github.manat.subrelease.reader;
 
-import com.github.manat.subrelease.model.Artifact;
+import com.github.manat.subrelease.model.Dependency;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -39,7 +39,7 @@ public class XpathPomReader implements PomReader {
     }
 
     @Override
-    public List<Artifact> getSnapshotDependencies() {
+    public List<Dependency> getSnapshotDependencies() {
         XPath xPath = XPathFactory.newInstance().newXPath();
         try {
             XPathExpression xPathExpression = xPath
@@ -50,12 +50,12 @@ public class XpathPomReader implements PomReader {
                 return Collections.emptyList();
             }
 
-            List<Artifact> dependencies = new ArrayList<>();
-            Artifact dependency;
+            List<Dependency> dependencies = new ArrayList<>();
+            Dependency dependency;
 
             for (int i = 0; i < nl.getLength(); i++) {
                 NodeList children = nl.item(i).getChildNodes();
-                dependency = new Artifact();
+                dependency = new Dependency();
 
                 for (int j = 0; j < children.getLength(); j++) {
                     if (children.item(j) instanceof Element) {

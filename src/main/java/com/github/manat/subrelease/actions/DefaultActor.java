@@ -1,7 +1,7 @@
 package com.github.manat.subrelease.actions;
 
 import com.github.manat.subrelease.invoker.Invoker;
-import com.github.manat.subrelease.model.Artifact;
+import com.github.manat.subrelease.model.Dependency;
 
 import java.nio.file.Path;
 
@@ -25,16 +25,16 @@ public class DefaultActor implements Subrelease {
     }
 
     @Override
-    public boolean unpackArtifact(Artifact artifact) {
-        return invoker.execute(new String[] { "dependency:unpack" }, "artifact=" + artifact,
-                "outputDirectory=" + BASE_WORKSPACE + artifact.getArtifactId());
+    public boolean unpackArtifact(Dependency dependency) {
+        return invoker.execute(new String[] { "dependency:unpack" }, "dependency=" + dependency,
+                "outputDirectory=" + BASE_WORKSPACE + dependency.getArtifactId());
     }
 
     @Override
-    public boolean checkout(Artifact artifact, String connection) {
+    public boolean checkout(Dependency dependency, String connection) {
         return invoker
                 .execute(new String[] { "scm:checkout" }, "connectionType=developerConnection",
-                        "checkoutDirectory=" + BASE_WORKSPACE + artifact.getArtifactId(),
+                        "checkoutDirectory=" + BASE_WORKSPACE + dependency.getArtifactId(),
                         "developerConnectionUrl=" + connection);
     }
 

@@ -9,18 +9,18 @@ import static org.junit.Assert.assertThat;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.github.manat.subrelease.model.Artifact;
+import com.github.manat.subrelease.model.Dependency;
 import org.junit.Test;
 
 public class XpathPomReaderTest {
 
     private PomReader pomReader;
 
-    private List<Artifact> expectedDeps;
+    private List<Dependency> expectedDeps;
 
     @Test
     public void thatGetDependencyListOfSingleSnapshot() {
-        Artifact dep1 = new Artifact();
+        Dependency dep1 = new Dependency();
         dep1.setGroupId("com.codedeck.sample");
         dep1.setArtifactId("dep-a");
         dep1.setVersion("0.0.1-SNAPSHOT");
@@ -30,19 +30,19 @@ public class XpathPomReaderTest {
 
         pomReader = new XpathPomReader(get("src/test/resources/reader/pom/pom-with-snapshot.xml"));
 
-        List<Artifact> dependencies = pomReader.getSnapshotDependencies();
+        List<Dependency> dependencies = pomReader.getSnapshotDependencies();
 
         assertThat(dependencies, equalTo(expectedDeps));
     }
 
     @Test
     public void thatGetDependencyListOfMultipleSnapshot() {
-        Artifact dep1 = new Artifact();
+        Dependency dep1 = new Dependency();
         dep1.setGroupId("com.codedeck.sample");
         dep1.setArtifactId("dep-a");
         dep1.setVersion("0.0.1-SNAPSHOT");
 
-        Artifact dep2 = new Artifact();
+        Dependency dep2 = new Dependency();
         dep2.setGroupId("com.codedeck.sample");
         dep2.setArtifactId("dep-b");
         dep2.setVersion("0.0.1-SNAPSHOT");
@@ -54,7 +54,7 @@ public class XpathPomReaderTest {
         pomReader = new XpathPomReader(
                 get("src/test/resources/reader/pom/pom-with-multiple-snapshots.xml"));
 
-        List<Artifact> dependencies = pomReader.getSnapshotDependencies();
+        List<Dependency> dependencies = pomReader.getSnapshotDependencies();
 
         assertThat(dependencies, equalTo(expectedDeps));
     }
@@ -64,7 +64,7 @@ public class XpathPomReaderTest {
         pomReader = new XpathPomReader(
                 get("src/test/resources/reader/pom/pom-with-no-snapshot.xml"));
 
-        List<Artifact> dependencies = pomReader.getSnapshotDependencies();
+        List<Dependency> dependencies = pomReader.getSnapshotDependencies();
 
         assertThat(dependencies, is(empty()));
     }

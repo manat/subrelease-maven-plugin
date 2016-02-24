@@ -3,7 +3,7 @@ package com.github.manat.subrelease.reader;
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static java.nio.file.Files.readAllBytes;
 
-import com.github.manat.subrelease.model.Artifact;
+import com.github.manat.subrelease.model.Dependency;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -17,37 +17,37 @@ import java.util.List;
 public class DefaultOutputReader implements OutputReader {
 
     @Override
-    public List<Artifact> getResolvedArtifacts(Path outputFile) {
+    public List<Dependency> getResolvedArtifacts(Path outputFile) {
         try {
             String output = new String(readAllBytes(outputFile), UTF_8.name());
             String[] rawArtifacts = output.split("[\\r\\n]+\\s");
-            List<Artifact> artifacts = new ArrayList<>();
+            List<Dependency> dependencies = new ArrayList<>();
 
             for (int i = 1; i < rawArtifacts.length; i++) {
-                artifacts.add(new Artifact(rawArtifacts[i]));
+                dependencies.add(new Dependency(rawArtifacts[i]));
             }
 
-            return artifacts;
+            return dependencies;
 
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        return Collections.<Artifact>emptyList();
+        return Collections.<Dependency>emptyList();
     }
 
     @Override
-    public List<Artifact> getResolvedSnapshotArtifacts(Path outputFile) {
-        List<Artifact> resolvedArtifacts = getResolvedArtifacts(outputFile);
-        List<Artifact> snapshotArtifacts = new ArrayList<>();
+    public List<Dependency> getResolvedSnapshotArtifacts(Path outputFile) {
+        List<Dependency> resolvedDependencies = getResolvedArtifacts(outputFile);
+        List<Dependency> snapshotDependencies = new ArrayList<>();
 
-        for (Artifact artifact : resolvedArtifacts) {
-            if (artifact.getVersion().contains("-SNAPSHOT")) {
-                snapshotArtifacts.add(artifact);
+        for (Dependency dependency : resolvedDependencies) {
+            if (dependency.getVersion().contains("-SNAPSHOT")) {
+                snapshotDependencies.add(dependency);
             }
         }
 
-        return snapshotArtifacts;
+        return snapshotDependencies;
     }
 
 }

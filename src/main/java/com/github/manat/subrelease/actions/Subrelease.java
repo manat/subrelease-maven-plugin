@@ -1,6 +1,6 @@
 package com.github.manat.subrelease.actions;
 
-import com.github.manat.subrelease.model.Artifact;
+import com.github.manat.subrelease.model.Dependency;
 
 import java.nio.file.Path;
 
@@ -19,21 +19,21 @@ public interface Subrelease {
     boolean resolveDependency(Path output);
 
     /**
-     * Executes mvn dependency:unpack of the given artifact value.
+     * Executes mvn dependency:unpack of the given dependency value.
      *
-     * @param artifact an Artifact to be unpack
+     * @param dependency an Dependency to be unpack
      * @return true for success; false otherwise
      */
-    boolean unpackArtifact(Artifact artifact);
+    boolean unpackArtifact(Dependency dependency);
 
     /**
-     * Executes mvn scm:checkout of the given artifact, using provided connection.
+     * Executes mvn scm:checkout of the given dependency, using provided connection.
      *
-     * @param artifact   an Artifact to be checkout
+     * @param dependency   an Dependency to be checkout
      * @param connection an information indicates scm type and connection url
      * @return true for success; false otherwise
      */
-    boolean checkout(Artifact artifact, String connection);
+    boolean checkout(Dependency dependency, String connection);
 
     /**
      * Executes mvn release:prepare.
