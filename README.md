@@ -1,4 +1,6 @@
 # subrelease-maven-plugin
+[![Build Status](https://travis-ci.org/manat/subrelease-maven-plugin.svg)](https://travis-ci.org/manat/subrelease-maven-plugin)
+
 This plugin provides an enhancement over the usual maven-release-plugin by releasing any snapshot dependencies altogether.
 
 In a perfect world, maven-release-plugin would easily help you release your awesome project. Consider the following release phrases designed by [maven-release-plugin](https://maven.apache.org/maven-release/maven-release-plugin/examples/prepare-release.html)
