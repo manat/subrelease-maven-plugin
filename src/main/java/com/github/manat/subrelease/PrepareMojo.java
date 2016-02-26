@@ -60,7 +60,7 @@ public class PrepareMojo extends AbstractSubreleaseMojo {
             List<Dependency> dependencies = reader.getResolvedSnapshotArtifacts(resolvedDepPath);
 
             for (Dependency dependency : dependencies) {
-                if (actor.exists(dependency)) {
+                if (actor.releaseExists(dependency)) {
                     snapshotDependencies.add(dependency);
                 } else {
                     boolean isDepRelease = releaseDependency(actor, dependency);

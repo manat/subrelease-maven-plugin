@@ -44,6 +44,11 @@ public class DefaultActor implements Subrelease {
     }
 
     @Override
+    public boolean releaseExists(Dependency dependency) {
+        return invoker.execute(new String[] { "dependency:get" }, "artifact=" + dependency.toReleaseString());
+    }
+
+    @Override
     public boolean release() {
         return invoker.execute(new String[] { "--batch-mode", "release:clean", "release:prepare" });
     }
@@ -51,7 +56,7 @@ public class DefaultActor implements Subrelease {
     @Override
     public boolean release(String scmCommentPrefix) {
         return invoker.execute(new String[] { "--batch-mode", "release:clean", "release:prepare" },
-                "scmCommentPrefix=" + scmCommentPrefix);
+                "scmCommentPrefix=" + scmCommentPrefix + " ");
     }
 
     @Override

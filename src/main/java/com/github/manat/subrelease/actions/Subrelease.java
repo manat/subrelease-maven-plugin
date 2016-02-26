@@ -37,12 +37,21 @@ public interface Subrelease {
 
     /**
      * Executes mvn dependency:get to find out if a certain version of the given dependency/artifact
-     * has been released.
+     * exists.
      *
      * @param dependency a Dependency to verify
      * @return true if the given dependency has been released
      */
     boolean exists(Dependency dependency);
+
+    /**
+     * Executes mvn dependency:get to find out if a release version of the given dependency/artifact
+     * exists.
+     *
+     * @param dependency a Dependency to verify
+     * @return true if the given dependency has been released
+     */
+    boolean releaseExists(Dependency dependency);
 
     /**
      * Executes mvn release:prepare.

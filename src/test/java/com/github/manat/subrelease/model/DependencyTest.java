@@ -16,4 +16,14 @@ public class DependencyTest {
 
         assertThat(actual, equalTo(expected));
     }
+
+    @Test
+    public void thatToReleaseStringDoesNotContainSnapshot() {
+        String dep = "  com.codedeck.sample:dep-a:jar:0.0.1:compile";
+        Dependency expected = new Dependency("com.codedeck.sample", "dep-a", "0.0.1");
+
+        Dependency actual = new Dependency(dep);
+
+        assertThat(actual, equalTo(expected));
+    }
 }

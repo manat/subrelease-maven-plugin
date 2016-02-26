@@ -94,4 +94,8 @@ public class Dependency {
     public String toString() {
         return groupId + ":" + artifactId + ":" + version;
     }
+
+    public String toReleaseString() {
+        return toString().replace("-SNAPSHOT", "");
+    }
 }
