@@ -52,7 +52,16 @@ public interface Subrelease {
     boolean release();
 
     /**
-     * Executes mvn release:perform which bacically to deploy artifacts.
+     * Executes mvn release:prepare with scmCommentPrefix.
+     *
+     * @param scmCommentPrefix the message prefix to use for all SCM changes
+     * @return true for success; false otherwise
+     * @see https://maven.apache.org/maven-release/maven-release-plugin/prepare-mojo.html#scmCommentPrefix
+     */
+    boolean release(String scmCommentPrefix);
+
+    /**
+     * Executes mvn release:perform which basically to deploy artifacts.
      *
      * @return true for success; false otherwise
      */
@@ -64,4 +73,13 @@ public interface Subrelease {
      * @return true for success; false otherwise
      */
     boolean commit();
+
+    /**
+     * Executes mvn scm:checkin to commit any changes within the repository, and prefix the commit
+     * message with the give scmCommentPrefix.
+     *
+     * @param scmCommentPrefix the message prefix to use for all SCM changes
+     * @return true for success; false otherwise
+     */
+    boolean commit(String scmCommentPrefix);
 }

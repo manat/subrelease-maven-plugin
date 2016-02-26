@@ -49,6 +49,12 @@ public class DefaultActor implements Subrelease {
     }
 
     @Override
+    public boolean release(String scmCommentPrefix) {
+        return invoker.execute(new String[] { "--batch-mode", "release:clean", "release:prepare" },
+                "scmCommentPrefix=" + scmCommentPrefix);
+    }
+
+    @Override
     public boolean perform() {
         return invoker.execute(new String[] { "--batch-mode", "release:perform" });
     }
@@ -57,5 +63,11 @@ public class DefaultActor implements Subrelease {
     public boolean commit() {
         return invoker.execute(new String[] { "scm:checkin" },
                 "message=\"[subrelease-maven-plugin] Resolved any SNAPSHOT dependencies.\"");
+    }
+
+    @Override
+    public boolean commit(String scmCommentPrefix) {
+        return invoker.execute(new String[] { "scm:checkin" }, "message=\"" + scmCommentPrefix
+                + "\" \"[subrelease-maven-plugin] Resolved any SNAPSHOT dependencies.\"");
     }
 }

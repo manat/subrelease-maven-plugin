@@ -25,6 +25,7 @@ import com.github.manat.subrelease.writer.StringContentWriter;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.Mojo;
+import org.apache.maven.plugins.annotations.Parameter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -36,6 +37,14 @@ import org.slf4j.LoggerFactory;
 public class PrepareMojo extends AbstractSubreleaseMojo {
 
     private final Logger logger = LoggerFactory.getLogger(PrepareMojo.class);
+
+    /**
+     * The message prefix to use for all SCM changes.
+     * <p>
+     * Default is "[maven-release-plugin]".
+     */
+    @Parameter(defaultValue = "[maven-release-plugin]",
+               property = "scmCommentPrefix") String scmCommentPrefix;
 
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
@@ -95,7 +104,7 @@ public class PrepareMojo extends AbstractSubreleaseMojo {
             Invoker subInvoker = new MavenInvoker(subProjectPath);
             Subrelease subActor = new DefaultActor(subInvoker);
 
-            boolean result = subActor.release() && subActor.perform();
+            boolean result = subActor.release(scmCommentPrefix) && subActor.perform();
             logger.info("\n\n--- Result of subactor for {}: {} ---\n\n", dependency, result);
 
             return result;
