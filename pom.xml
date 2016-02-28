@@ -3,7 +3,7 @@
 
     <groupId>com.github.manat</groupId>
     <artifactId>subrelease-maven-plugin</artifactId>
-    <version>0.1.1-SNAPSHOT</version>
+    <version>0.1.1</version>
     <packaging>maven-plugin</packaging>
 
     <name>subrelease-maven-plugin Maven Plugin</name>
@@ -20,7 +20,7 @@
     <scm>
         <developerConnection>scm:git:https://github.com/manat/subrelease-maven-plugin.git
         </developerConnection>
-      <tag>HEAD</tag>
+      <tag>v0.1.1</tag>
   </scm>
 
     <dependencies>
