@@ -56,7 +56,7 @@ public class DefaultActor implements Subrelease {
     @Override
     public boolean release(String scmCommentPrefix) {
         return invoker.execute(new String[] { "--batch-mode", "release:clean", "release:prepare" },
-                "scmCommentPrefix=" + scmCommentPrefix + " ");
+                "scmCommentPrefix=\"" + scmCommentPrefix + " \"");
     }
 
     @Override
