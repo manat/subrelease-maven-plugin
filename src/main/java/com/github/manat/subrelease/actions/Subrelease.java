@@ -72,9 +72,11 @@ public interface Subrelease {
     /**
      * Executes mvn release:perform which basically to deploy artifacts.
      *
+     * @param options scm options for release:perform command
      * @return true for success; false otherwise
+     * @see http://maven.apache.org/maven-release/maven-release-plugin/perform-mojo.html
      */
-    boolean perform();
+    boolean perform(String... options);
 
     /**
      * Executes mvn scm:checkin to commit any changes within the repository.

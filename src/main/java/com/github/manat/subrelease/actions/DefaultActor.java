@@ -60,8 +60,8 @@ public class DefaultActor implements Subrelease {
     }
 
     @Override
-    public boolean perform() {
-        return invoker.execute(new String[] { "--batch-mode", "release:perform" });
+    public boolean perform(String... options) {
+        return invoker.execute(new String[] { "--batch-mode", "release:perform" }, options);
     }
 
     @Override
