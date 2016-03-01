@@ -18,7 +18,7 @@ import org.slf4j.LoggerFactory;
 /**
  * Basically performs mvn release:prepare through standard maven-release-plugin.
  *
- * @see http://maven.apache.org/plugins/maven-release-plugin/examples/prepare- release.html
+ * @see http://maven.apache.org/plugins/maven-release-plugin/examples/prepare-release.html
  */
 @Mojo(name = "release")
 public class ReleaseMojo extends AbstractSubreleaseMojo {

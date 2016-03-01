@@ -75,7 +75,7 @@ public class PrepareMojo extends AbstractSubreleaseMojo {
                 PomWriter pomWriter = new StringContentWriter(get(baseDir, "pom.xml"));
                 pomWriter.updateSnapshotVersion(snapshotDependencies);
 
-                if (actor.commit()) {
+                if (actor.commit(scmCommentPrefix)) {
                     logger.info("----- subrelease commit-----");
                     logger.info(
                             "Successfully updates SNAPSHOT dependencies, and commit a change to pom.");
