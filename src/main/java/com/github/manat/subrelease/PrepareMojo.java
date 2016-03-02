@@ -1,11 +1,10 @@
-/**
- *
- */
 package com.github.manat.subrelease;
 
+import static com.github.manat.subrelease.model.MvnOptions.*;
 import static java.lang.System.currentTimeMillis;
 import static java.nio.file.Paths.get;
 
+import java.lang.reflect.Field;
 import java.nio.file.Path;
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -44,7 +43,20 @@ public class PrepareMojo extends AbstractSubreleaseMojo {
      * Default is "[maven-release-plugin]".
      */
     @Parameter(defaultValue = "[maven-release-plugin]",
-               property = "scmCommentPrefix") String scmCommentPrefix;
+               property = "scmCommentPrefix")
+    String scmCommentPrefix;
+
+    /**
+     * The SCM username to use.
+     */
+    @Parameter(property = "username")
+    String username;
+
+    /**
+     * The SCM password to use.
+     */
+    @Parameter(property = "password")
+    String password;
 
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
@@ -75,7 +87,7 @@ public class PrepareMojo extends AbstractSubreleaseMojo {
                 PomWriter pomWriter = new StringContentWriter(get(baseDir, "pom.xml"));
                 pomWriter.updateSnapshotVersion(snapshotDependencies);
 
-                if (actor.commit(scmCommentPrefix)) {
+                if (actor.commit(makeOpt(SCM_COMMENT_PREFIX))) {
                     logger.info("----- subrelease commit-----");
                     logger.info(
                             "Successfully updates SNAPSHOT dependencies, and commit a change to pom.");
@@ -104,8 +116,12 @@ public class PrepareMojo extends AbstractSubreleaseMojo {
             Invoker subInvoker = new MavenInvoker(subProjectPath);
             Subrelease subActor = new DefaultActor(subInvoker);
 
-            boolean result = subActor.release(scmCommentPrefix) && subActor.perform();
-            logger.info("\n\n--- Result of subactor for {}: {} ---\n\n", dependency, result);
+            boolean releaseResult = subActor.release(makeOpt(SCM_COMMENT_PREFIX));
+            boolean performResult = subActor.perform(makeOpt(SCM_USERNAME), makeOpt(SCM_PASSWORD));
+            boolean result = releaseResult && performResult;
+            logger.info("\n\n--- Result of subactor for {}: ---", dependency);
+            logger.info("\trelease result: {}", releaseResult);
+            logger.info("\tperform result: {}\n\n\n", performResult);
 
             return result;
         }
@@ -113,4 +129,23 @@ public class PrepareMojo extends AbstractSubreleaseMojo {
         return false;
     }
 
+    private String makeOpt(String key) {
+        try {
+            Field field = this.getClass().getDeclaredField(key);
+            field.setAccessible(true);
+
+            return makeOpt(key, (String) field.get(this));
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    private String makeOpt(String key, String value) {
+        if (value == null || value.trim().length() == 0) {
+            return null;
+        }
+
+        return key + "=" + value;
+    }
 }

@@ -12,6 +12,10 @@ public class MvnOptions {
 
     public static final String SCM_MESSAGE = "message";
 
+    public static final String SCM_USERNAME = "username";
+
+    public static final String SCM_PASSWORD = "password";
+
     private String[] options;
 
     public MvnOptions(String[] options) {

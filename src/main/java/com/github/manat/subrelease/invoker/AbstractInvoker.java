@@ -6,8 +6,8 @@ import java.util.List;
 
 /**
  * This abstract class provides common methods those would be used any classes which to implement
- * @{code Invoker}.
  *
+ * @{code Invoker}.
  * @see Invoker
  */
 public abstract class AbstractInvoker implements Invoker {
@@ -18,8 +18,10 @@ public abstract class AbstractInvoker implements Invoker {
         args.addAll(Arrays.asList(commands));
         if (options != null) {
             for (String opt : options) {
-                if (!opt.startsWith("-D")) {
-                    args.add("-D" + opt);
+                if (opt != null && opt.trim().length() > 0) {
+                    if (!opt.startsWith("-D")) {
+                        args.add("-D" + opt);
+                    }
                 }
             }
         }
