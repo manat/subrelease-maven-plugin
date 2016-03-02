@@ -6,6 +6,7 @@ import com.github.manat.subrelease.invoker.Invoker;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
+import org.mockito.internal.exceptions.ExceptionIncludingMockitoWarnings;
 
 /**
  * This class gives base test cases those should be verified through implementation classes.
@@ -22,6 +23,22 @@ public abstract class DefaultActorTestBase {
     @Before
     public void setUp() {
         actor = createActor(invoker);
+    }
+
+    @Test
+    public void testReleaseWithNoOptions() throws Exception {
+        actor.release();
+
+        verify(invoker)
+                .execute(new String[] { "--batch-mode", "release:clean", "release:prepare" });
+    }
+
+    @Test
+    public void testReleaseWithMultipleOptions() throws Exception {
+        actor.release("dryRun=true", "scmCommentPrefix=[MIT-101]");
+
+        verify(invoker).execute(new String[] { "--batch-mode", "release:clean", "release:prepare" },
+                "dryRun=true", "scmCommentPrefix=[MIT-101]");
     }
 
     @Test
@@ -52,6 +69,7 @@ public abstract class DefaultActorTestBase {
         actor.commit("scmCommentPrefix=[MIT-101]", "includes=*.MD,*.java");
 
         verify(invoker).execute(new String[] { "scm:checkin" },
-                "message=\"[MIT-101] [subrelease-maven-plugin] Resolved any SNAPSHOT dependencies.\"", "includes=*.MD,*.java");
+                "message=\"[MIT-101] [subrelease-maven-plugin] Resolved any SNAPSHOT dependencies.\"",
+                "includes=*.MD,*.java");
     }
 }

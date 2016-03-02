@@ -54,25 +54,19 @@ public interface Subrelease {
     boolean releaseExists(Dependency dependency);
 
     /**
-     * Executes mvn release:prepare.
+     * Executes mvn release:prepare. Any standard options of release:prepare are applied.
      *
+     * @param options mvn options for release:prepare command
      * @return true for success; false otherwise
+     * @see http://maven.apache.org/maven-release/maven-release-plugin/prepare-mojo.html
      */
-    boolean release();
+    boolean release(String... options);
 
     /**
-     * Executes mvn release:prepare with scmCommentPrefix.
+     * Executes mvn release:perform which basically deploy artifacts to the artifactory. Any
+     * standard options of release:perform are applied.
      *
-     * @param scmCommentPrefix the message prefix to use for all SCM changes
-     * @return true for success; false otherwise
-     * @see https://maven.apache.org/maven-release/maven-release-plugin/prepare-mojo.html#scmCommentPrefix
-     */
-    boolean release(String scmCommentPrefix);
-
-    /**
-     * Executes mvn release:perform which basically to deploy artifacts.
-     *
-     * @param options scm options for release:perform command
+     * @param options mvn options for release:perform command
      * @return true for success; false otherwise
      * @see http://maven.apache.org/maven-release/maven-release-plugin/perform-mojo.html
      */
@@ -86,7 +80,7 @@ public interface Subrelease {
      * default commit message. However, scm:checkin option is honored first, means, if message
      * option is supplied, scmCommentPrefix will be ignored.
      *
-     * @param options scm:checkin options plus scmCommentPrefix which is an extra
+     * @param options mvn options for scm:checkin command, plus scmCommentPrefix which is an extra
      * @return true for success; false otherwise
      * @see https://maven.apache.org/scm/maven-scm-plugin/checkin-mojo.html
      */
