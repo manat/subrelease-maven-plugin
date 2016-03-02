@@ -24,7 +24,6 @@ import com.github.manat.subrelease.writer.StringContentWriter;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.Mojo;
-import org.apache.maven.plugins.annotations.Parameter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -36,27 +35,6 @@ import org.slf4j.LoggerFactory;
 public class PrepareMojo extends AbstractSubreleaseMojo {
 
     private final Logger logger = LoggerFactory.getLogger(PrepareMojo.class);
-
-    /**
-     * The message prefix to use for all SCM changes.
-     * <p>
-     * Default is "[maven-release-plugin]".
-     */
-    @Parameter(defaultValue = "[maven-release-plugin]",
-               property = "scmCommentPrefix")
-    String scmCommentPrefix;
-
-    /**
-     * The SCM username to use.
-     */
-    @Parameter(property = "username")
-    String username;
-
-    /**
-     * The SCM password to use.
-     */
-    @Parameter(property = "password")
-    String password;
 
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
@@ -117,7 +95,9 @@ public class PrepareMojo extends AbstractSubreleaseMojo {
             Subrelease subActor = new DefaultActor(subInvoker);
 
             boolean releaseResult = subActor.release(makeOpt(SCM_COMMENT_PREFIX));
-            boolean performResult = subActor.perform(makeOpt(SCM_USERNAME), makeOpt(SCM_PASSWORD));
+            boolean performResult = subActor
+                    .perform(makArgsOpts(ALT_DEPLOY_REPO), makeOpt(SCM_USERNAME),
+                            makeOpt(SCM_PASSWORD));
             boolean result = releaseResult && performResult;
             logger.info("\n\n--- Result of subactor for {}: ---", dependency);
             logger.info("\trelease result: {}", releaseResult);
@@ -129,9 +109,18 @@ public class PrepareMojo extends AbstractSubreleaseMojo {
         return false;
     }
 
+    private String makArgsOpts(String key) {
+        String opt = makeOpt(key);
+        if (opt == null) {
+            return null;
+        }
+
+        return "-Darguments=-D" + opt;
+    }
+
     private String makeOpt(String key) {
         try {
-            Field field = this.getClass().getDeclaredField(key);
+            Field field = this.getClass().getSuperclass().getDeclaredField(key);
             field.setAccessible(true);
 
             return makeOpt(key, (String) field.get(this));

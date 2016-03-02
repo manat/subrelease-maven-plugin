@@ -16,6 +16,8 @@ public class MvnOptions {
 
     public static final String SCM_PASSWORD = "password";
 
+    public static final String ALT_DEPLOY_REPO = "altDeploymentRepository";
+
     private String[] options;
 
     public MvnOptions(String[] options) {

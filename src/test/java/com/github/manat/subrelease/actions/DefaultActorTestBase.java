@@ -57,6 +57,17 @@ public abstract class DefaultActorTestBase {
     }
 
     @Test
+    public void testPerformWithAltDeployRepo() throws Exception {
+        actor.perform(
+                "-Darguments=-DaltDeploymentRepository=personal::default::file:///C:/Users/test/.m2/repository",
+                "username=test");
+
+        verify(invoker).execute(new String[] { "--batch-mode", "release:perform" },
+                "-Darguments=-DaltDeploymentRepository=personal::default::file:///C:/Users/test/.m2/repository",
+                "username=test");
+    }
+
+    @Test
     public void testCommitWithNoOptions() throws Exception {
         actor.commit();
 
