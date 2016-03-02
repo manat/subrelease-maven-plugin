@@ -79,18 +79,16 @@ public interface Subrelease {
     boolean perform(String... options);
 
     /**
-     * Executes mvn scm:checkin to commit any changes within the repository.
+     * Executes mvn scm:checkin to commit any changes within the repository, using default commit
+     * message as "[subrelease-maven-plugin] Resolved any SNAPSHOT dependencies.".
+     * <p>
+     * In addition to standard scm:checkin option, it accepts scmCommentPrefix option as a prefix to
+     * default commit message. However, scm:checkin option is honored first, means, if message
+     * option is supplied, scmCommentPrefix will be ignored.
      *
+     * @param options scm:checkin options plus scmCommentPrefix which is an extra
      * @return true for success; false otherwise
+     * @see https://maven.apache.org/scm/maven-scm-plugin/checkin-mojo.html
      */
-    boolean commit();
-
-    /**
-     * Executes mvn scm:checkin to commit any changes within the repository, and prefix the commit
-     * message with the give scmCommentPrefix.
-     *
-     * @param scmCommentPrefix the message prefix to use for all SCM changes
-     * @return true for success; false otherwise
-     */
-    boolean commit(String scmCommentPrefix);
+    boolean commit(String... options);
 }

@@ -1,9 +1,10 @@
 package com.github.manat.subrelease.actions;
 
+import java.nio.file.Path;
+
 import com.github.manat.subrelease.invoker.Invoker;
 import com.github.manat.subrelease.model.Dependency;
-
-import java.nio.file.Path;
+import com.github.manat.subrelease.model.MvnOptions;
 
 /**
  * Default implementor to perform a series of subrelease.
@@ -45,7 +46,8 @@ public class DefaultActor implements Subrelease {
 
     @Override
     public boolean releaseExists(Dependency dependency) {
-        return invoker.execute(new String[] { "dependency:get" }, "artifact=" + dependency.toReleaseString());
+        return invoker.execute(new String[] { "dependency:get" },
+                "artifact=" + dependency.toReleaseString());
     }
 
     @Override
@@ -65,14 +67,17 @@ public class DefaultActor implements Subrelease {
     }
 
     @Override
-    public boolean commit() {
-        return invoker.execute(new String[] { "scm:checkin" },
-                "message=\"[subrelease-maven-plugin] Resolved any SNAPSHOT dependencies.\"");
-    }
+    public boolean commit(String... options) {
+        String message = "[subrelease-maven-plugin] Resolved any SNAPSHOT dependencies.";
+        MvnOptions mvnOptions;
 
-    @Override
-    public boolean commit(String scmCommentPrefix) {
-        return invoker.execute(new String[] { "scm:checkin" }, "message=\"" + scmCommentPrefix
-                + "\" \"[subrelease-maven-plugin] Resolved any SNAPSHOT dependencies.\"");
+        if (options == null || options.length == 0) {
+            mvnOptions = new MvnOptions(new String[] { "message=\"" + message + "\"" });
+        } else {
+            mvnOptions = new MvnOptions(options);
+            mvnOptions.mergeScmMessageWithPrefix(message);
+        }
+
+        return invoker.execute(new String[] { "scm:checkin" }, mvnOptions.getValues());
     }
 }
