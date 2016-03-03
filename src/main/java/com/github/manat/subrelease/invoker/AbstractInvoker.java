@@ -19,9 +19,7 @@ public abstract class AbstractInvoker implements Invoker {
         if (options != null) {
             for (String opt : options) {
                 if (opt != null && opt.trim().length() > 0) {
-                    if (!opt.startsWith("-D")) {
-                        args.add("-D" + opt);
-                    }
+                    args.add(opt.startsWith("-D") ? opt : "-D" + opt);
                 }
             }
         }
