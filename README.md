@@ -54,9 +54,8 @@ Please note that `clean` command is recommended.
 
 ## Goals
 
-There are 2 available goals at the moment:
+There are 1 available goal at the moment:
 * **prepare** to release any SNAPSHOT dependencies, then updating current pom.xml to be ready for releasing
-* **release** to basically executes release:prepare of standard maven-release-plugin
 
 ### prepare
 
