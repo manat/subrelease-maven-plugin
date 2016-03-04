@@ -95,15 +95,18 @@ public class PrepareMojo extends AbstractSubreleaseMojo {
             Subrelease subActor = new DefaultActor(subInvoker);
 
             boolean releaseResult = subActor.release(makeOpt(SCM_COMMENT_PREFIX));
-            boolean performResult = subActor
-                    .perform(makArgsOpts(ALT_DEPLOY_REPO), makeOpt(SCM_USERNAME),
-                            makeOpt(SCM_PASSWORD));
-            boolean result = releaseResult && performResult;
+            boolean performResult = false;
+            if (!releaseResult) {
+                performResult = subActor
+                        .perform(makArgsOpts(ALT_DEPLOY_REPO), makeOpt(SCM_USERNAME),
+                                makeOpt(SCM_PASSWORD));
+            }
+
             logger.info("\n\n--- Result of subactor for {}: ---", dependency);
             logger.info("\trelease result: {}", releaseResult);
             logger.info("\tperform result: {}\n\n\n", performResult);
 
-            return result;
+            return releaseResult && performResult;
         }
 
         return false;

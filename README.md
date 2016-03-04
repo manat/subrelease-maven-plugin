@@ -36,19 +36,21 @@ You're also right that this problem may be resolved by going as multi-module, so
 At the moment, choose either #1 or #2
 
 1. Clone this project, then executes `mvn install` to install this plugin into your local repository
-2. Download [0.1.0.zip](https://github.com/manat/subrelease-maven-plugin/releases/download/v0.1.0/0.1.0.zip) plugin, then unzip it to your local repository
+2. Download [0.1.1.zip](https://github.com/manat/subrelease-maven-plugin/releases/download/v0.1.1/0.1.1.zip) plugin, then unzip it to your local repository
 
 Please also make sure your system has `M2_HOME` configured properly
 
 ### Command
 
-`mvn com.github.manat:subrelease-maven-plugin:[version]:[goal]`
+`mvn clean com.github.manat:subrelease-maven-plugin:[version]:[goal]`
 
 For example:
 
 ```bash
-mvn com.github.manat:subrelease-maven-plugin:0.1.0:prepare
+mvn clean com.github.manat:subrelease-maven-plugin:0.2.0:prepare
 ```
+
+Please note that `clean` command is recommended.
 
 ## Goals
 
@@ -64,15 +66,19 @@ It performs the following steps:
 2. For each of dependency
   1. Verifies if this dependency has already been released
   2. Otherwise, performs a release
+  3. If release succeed, performs a deployment. If dependency's pom doesn't include a valid `<distributionManagement/> section`, this step will fail. If you cannot include the section, an alternative fix is to include altDeploymentRepository option when executing this command. See [performing the release guide](https://maven.apache.org/guides/mini/guide-releasing.html#Performing_the_release) for more details.
 3. Once all of the snapshot dependencies are released, the project's pom will be updated to use released version instead of SNAPSHOT for those belong to #2
 4. Commit change of pom 
 
 
-Please note that **prepare** goal can be run repeatedly until #3 is satified.
+Please note that **prepare** goal can be run repeatedly until #3 is satisfied.
 
-### release
+#### Optional Parameters
 
-This basically performs [release:prepare](http://maven.apache.org/maven-release/maven-release-plugin/prepare-mojo.html) of standard maven-release-plugin.
+* **scmCommentPrefix** - The message prefix to use for all SCM changes.
+* **altDeploymentRepository** - Specifies an alternative repository to which the project artifacts should be deployed ( other than those specified in <distributionManagement> ).
+                            Format: `id::layout::url`. For example, `personal::default::file:///home/vader/.m2/repository`  .See [maven-deploy-plugin](https://maven.apache.org/plugins/maven-deploy-plugin/deploy-mojo.html#altDeploymentRepository) for clarification. 
+
 
 ## Contribution
 
