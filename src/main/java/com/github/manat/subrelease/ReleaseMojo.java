@@ -19,8 +19,11 @@ import org.slf4j.LoggerFactory;
  * Basically performs mvn release:prepare through standard maven-release-plugin.
  *
  * @see http://maven.apache.org/plugins/maven-release-plugin/examples/prepare-release.html
+ * @deprecated As of release 0.2.0. Users are encouraged to use standard maven-release-plugin since
+ * this provides no additional features.
  */
 @Mojo(name = "release")
+@Deprecated
 public class ReleaseMojo extends AbstractSubreleaseMojo {
 
     private final Logger logger = LoggerFactory.getLogger(PrepareMojo.class);
